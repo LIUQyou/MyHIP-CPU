@@ -12,10 +12,14 @@ target_compile_definitions(
             WIN32_LEAN_AND_MEAN
             NOMINMAX>)
 
-add_subdirectory(graph_parser)
 add_subdirectory(bc)
 add_subdirectory(color)
 add_subdirectory(fw)
 add_subdirectory(mis)
 add_subdirectory(pagerank)
 add_subdirectory(sssp)
+
+target_link_libraries(automata
+  PRIVATE
+	util
+  )
