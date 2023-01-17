@@ -4,7 +4,8 @@ add_library(examples_common2 INTERFACE)
 
 target_link_libraries(
     examples_common2 INTERFACE
-        hip_cpu_rt::hip_cpu_rt)
+        hip_cpu_rt::hip_cpu_rt
+	util)
 
 target_compile_definitions(
     examples_common2 INTERFACE
@@ -18,8 +19,3 @@ add_subdirectory(fw)
 add_subdirectory(mis)
 add_subdirectory(pagerank)
 add_subdirectory(sssp)
-
-target_link_libraries(automata
-  PRIVATE
-	util
-  )
