@@ -3,10 +3,18 @@ set(name2 colorMinmax)
 set(SOURCES1
     coloring_max.cpp
     kernel_max.h
+    ../parse.cpp
+    ../parse.h
+    ../util.cpp
+    ../util.h
 )
 set(SOURCES2
     coloring_maxmin.cpp
     kernel_maxmin.h
+    ../parse.cpp
+    ../parse.h
+    ../util.cpp
+    ../util.h
 )
 
 add_executable(${name1} ${SOURCES1})
