@@ -1,8 +1,8 @@
 set(name mis)
 
-set(SOURCES
-    *.cpp
-    *.h
+file(GLOB SOURCES
+     "*.h"
+     "*.cpp"
 )
 
 add_executable(${name} ${SOURCES})
