@@ -12,6 +12,7 @@ target_compile_definitions(
             WIN32_LEAN_AND_MEAN
             NOMINMAX>)
 
+add_subdirectory(graph_parser)
 add_subdirectory(bc)
 add_subdirectory(color)
 add_subdirectory(fw)
