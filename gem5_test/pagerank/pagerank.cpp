@@ -143,29 +143,29 @@ int main(int argc, char **argv)
     float *pagerank2_d;
 
     // Create device-side buffers for the graph
-    err = hipMalloc(&row_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&row_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc row_d (size:%d) => %s\n",  num_nodes, hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&col_d, num_edges * sizeof(int));
+    err = hipMalloc((void**)&col_d, num_edges * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc col_d (size:%d) => %s\n",  num_edges, hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&data_d, num_edges * sizeof(int));
+    err = hipMalloc((void**)&data_d, num_edges * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc data_d (size:%d) => %s\n", num_edges, hipGetErrorString(err));
         return -1;
     }
 
     // Create buffers for pagerank
-    err = hipMalloc(&pagerank1_d, num_nodes * sizeof(float));
+    err = hipMalloc((void**)&pagerank1_d, num_nodes * sizeof(float));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc pagerank1_d (size:%d) => %s\n", num_nodes, hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&pagerank2_d, num_nodes * sizeof(float));
+    err = hipMalloc((void**)&pagerank2_d, num_nodes * sizeof(float));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc pagerank2_d (size:%d) => %s\n", num_nodes, hipGetErrorString(err));
         return -1;

@@ -147,31 +147,31 @@ int main(int argc, char **argv)
     int *stop_d;
 
     // Create the device-side graph structure
-    err = hipMalloc(&ell_col_d, height * num_nodes * sizeof(int));
+    err = hipMalloc((void**)&ell_col_d, height * num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc ell_col_d (size:%d) => %s\n", height * num_nodes, hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&ell_data_d, height * num_nodes * sizeof(int));
+    err = hipMalloc((void**)&ell_data_d, height * num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc ell_data_d (size:%d) => %s\n", height * num_nodes, hipGetErrorString(err));
         return -1;
     }
 
     // Termination variable
-    err = hipMalloc(&stop_d, sizeof(int));
+    err = hipMalloc((void**)&stop_d, sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc stop_d (size:%d) => %s\n", 1, hipGetErrorString(err));
         return -1;
     }
 
     // Create the device-side buffers for sssp
-    err = hipMalloc(&vector_d1, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&vector_d1, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc vector_d1 (size:%d) => %s\n", num_nodes, hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&vector_d2, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&vector_d2, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc vector_d2 (size:%d) => %s\n", num_nodes, hipGetErrorString(err));
         return -1;

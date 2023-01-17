@@ -153,46 +153,46 @@ int main(int argc, char **argv)
     int *stop_d;
 
     // Allocate the device-side buffers for the graph
-    err = hipMalloc(&row_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&row_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc row_d (size:%d) => %s\n",  num_nodes , hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&col_d, num_edges * sizeof(int));
+    err = hipMalloc((void**)&col_d, num_edges * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc col_d (size:%d) => %s\n",  num_edges , hipGetErrorString(err));
         return -1;
     }
 
     // Termination variable
-    err = hipMalloc(&stop_d, sizeof(int));
+    err = hipMalloc((void**)&stop_d, sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc stop_d (size:%d) => %s\n", 1, hipGetErrorString(err));
         return -1;
     }
 
     // Allocate the device-side buffers for mis
-    err = hipMalloc(&min_array_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&min_array_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc min_array_d (size:%d) => %s\n", num_nodes , hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&c_array_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&c_array_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc c_array_d (size:%d) => %s\n", num_nodes , hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&c_array_u_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&c_array_u_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc c_array_d (size:%d) => %s\n", num_nodes , hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&s_array_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&s_array_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc s_array_d (size:%d) => %s\n", num_nodes , hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&node_value_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&node_value_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc node_value_d (size:%d) => %s\n", num_nodes , hipGetErrorString(err));
         return -1;

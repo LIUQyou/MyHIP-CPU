@@ -148,41 +148,41 @@ int main(int argc, char **argv)
     int *stop_d;
 
     // Create device-side buffers for the graph
-    err = hipMalloc(&row_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&row_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc row_d (size:%d) => %s\n",  num_nodes , hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&col_d, num_edges * sizeof(int));
+    err = hipMalloc((void**)&col_d, num_edges * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc col_d (size:%d): %s\n",  num_edges , hipGetErrorString(err));
         return -1;
     }
 
     // Termination variable
-    err = hipMalloc(&stop_d, sizeof(int));
+    err = hipMalloc((void**)&stop_d, sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc stop_d (size:%d) => %s\n",  1 , hipGetErrorString(err));
         return -1;
     }
 
     // Create device-side buffers for color
-    err = hipMalloc(&color_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&color_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc color_d (size:%d) => %s\n", num_nodes , hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&node_value_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&node_value_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc node_value_d (size:%d) => %s\n", num_nodes , hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&max_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&max_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc max_d (size:%d) => %s\n",  num_nodes , hipGetErrorString(err));
         return -1;
     }
-    err = hipMalloc(&min_d, num_nodes * sizeof(int));
+    err = hipMalloc((void**)&min_d, num_nodes * sizeof(int));
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR: hipMalloc min_d (size:%d) => %s\n",  num_nodes , hipGetErrorString(err));
         return -1;

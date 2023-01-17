@@ -155,12 +155,12 @@ int main(int argc, char **argv)
     int *next_d;
 
     // Create device-side FW buffers
-    err = hipMalloc(&dist_d, dim * dim * sizeof(int));
+    err = hipMalloc((void**)&dist_d, dim * dim * sizeof(int));
     if (err != hipSuccess) {
         printf("ERROR: hipMalloc dist_d (size:%d) => %d\n",  dim * dim , err);
         return -1;
     }
-    err = hipMalloc(&next_d, dim * dim * sizeof(int));
+    err = hipMalloc((void**)&next_d, dim * dim * sizeof(int));
     if (err != hipSuccess) {
         printf("ERROR: hipMalloc next_d (size:%d) => %d\n",  dim * dim , err);
         return -1;
