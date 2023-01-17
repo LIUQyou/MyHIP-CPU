@@ -108,6 +108,7 @@ option(
 
 if (hip_cpu_rt_BUILD_EXAMPLES)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/examples)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/gem5_test)
 endif ()
 
 if (hip_cpu_rt_BUILD_TESTING)
