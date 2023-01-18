@@ -78,6 +78,7 @@ void print_vectorf(float *vector, int num);
 
 int main(int argc, char **argv)
 {
+    double timer0 = gettime();
     char *tmpchar;
 
     int num_nodes;
