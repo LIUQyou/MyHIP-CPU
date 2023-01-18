@@ -170,6 +170,7 @@ int main(int argc, char **argv)
     // Copy data to device-side buffers
     double timer1 = gettime();
     printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
+    int status = system("m5 exit");
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
