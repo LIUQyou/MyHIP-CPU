@@ -60,7 +60,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <sys/time.h>
+#include <sys/time.h>
 #include "../graph_parser/parse.h"
 #include "../graph_parser/util.h"
 #include "kernel_max.h"
@@ -76,6 +76,7 @@ void print_vector(int *vector, int num);
 
 int main(int argc, char **argv)
 {
+    double timer0 = gettime();
     char *tmpchar;
 
     int num_nodes;
@@ -167,8 +168,8 @@ int main(int argc, char **argv)
     }
 
     // Copy data to device-side buffers
-//    double timer1 = gettime();
-
+    double timer1 = gettime();
+    printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
@@ -214,7 +215,7 @@ int main(int argc, char **argv)
     int graph_color = 1;
 
     // Main computation loop
-//    double timer3 = gettime();
+    double timer3 = gettime();
 
     while (stop) {
 
@@ -246,7 +247,7 @@ int main(int argc, char **argv)
     }
     hipDeviceSynchronize();
 
-//    double timer4 = gettime();
+    double timer4 = gettime();
 
     // Copy back the color array
     err = hipMemcpy(color, color_d, num_nodes * sizeof(int), hipMemcpyDeviceToHost);
@@ -259,12 +260,12 @@ int main(int argc, char **argv)
     m5_work_end(0, 0);
 #endif
 
-//    double timer2 = gettime();
+    double timer2 = gettime();
 
     // Print out color and timing statistics
     printf("total number of colors used: %d\n", graph_color);
-//    printf("kernel time = %lf ms\n", (timer4 - timer3) * 1000);
-//    printf("kernel + memcpy time = %lf ms\n", (timer2 - timer1) * 1000);
+    printf("kernel time = %lf ms\n", (timer4 - timer3) * 1000);
+    printf("kernel + memcpy time = %lf ms\n", (timer2 - timer1) * 1000);
 
 #if 1
     // Dump the color array into an output file

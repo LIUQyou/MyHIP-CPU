@@ -60,7 +60,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <sys/time.h>
+#include <sys/time.h>
 #include <algorithm>
 #include "BC.h"
 #include "../graph_parser/util.h"
@@ -83,11 +83,13 @@ void print_vectorf(float *vector, int num);
 
 int main(int argc, char **argv)
 {
+    double timer0 = gettime();
     char *tmpchar;
 
     int num_nodes;
     int num_edges;
     bool directed = 1;
+    int status = 0;
 
     hipError_t err;
 
@@ -161,11 +163,11 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    //double timer1, timer2;
-    //double timer3, timer4;
+    double timer1, timer2;
+    double timer3, timer4;
 
-    //timer1 = gettime();
-
+    timer1 = gettime();
+    printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
@@ -196,7 +198,7 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    //timer3 = gettime();
+    timer3 = gettime();
 
     // Set up kernel dimensions
     int local_worksize = 128;
@@ -251,7 +253,7 @@ int main(int argc, char **argv)
 	fprintf(stdout, "Completed iteration %d\n", i);
     }
     hipDeviceSynchronize();
-    //timer4 = gettime();
+    timer4 = gettime();
 
     // Copy back the results for the bc array
     err = hipMemcpy(bc_h, bc_d, num_nodes * sizeof(float), hipMemcpyDeviceToHost);
@@ -264,10 +266,10 @@ int main(int argc, char **argv)
     m5_work_end(0, 0);
 #endif
 
-    //timer2 = gettime();
+    timer2 = gettime();
 
-    //printf("kernel + memcopy time = %lf ms\n", (timer4 - timer3) * 1000);
-    //printf("kernel execution time = %lf ms\n", (timer2 - timer1) * 1000);
+    printf("kernel + memcopy time = %lf ms\n", (timer4 - timer3) * 1000);
+    printf("kernel execution time = %lf ms\n", (timer2 - timer1) * 1000);
 
 #if 1
     //dump the results to the file

@@ -76,6 +76,7 @@ void print_vector(int *vector, int num);
 
 int main(int argc, char **argv)
 {
+    double timer0 = gettime();
     char *tmpchar;
 
     int num_nodes;
@@ -174,7 +175,7 @@ int main(int argc, char **argv)
 
     // Copy data to device-side buffers
     double timer1 = gettime();
-
+    printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif

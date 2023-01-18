@@ -60,7 +60,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <sys/time.h>
+#include <sys/time.h>
 #include <algorithm>
 #include "../graph_parser/parse.h"
 #include "../graph_parser/util.h"
@@ -80,6 +80,7 @@ void print_vectorf(float *vector, int num);
 
 int main(int argc, char **argv)
 {
+    double timer0 = gettime();
     char *tmpchar;
 
     int num_nodes;
@@ -183,8 +184,8 @@ int main(int argc, char **argv)
         return -1;
     }
 
-//    double time1 = gettime();
-
+    double timer1 = gettime();
+    printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
@@ -273,11 +274,11 @@ int main(int argc, char **argv)
     m5_work_end(0, 0);
 #endif
 
-//    double time2 = gettime();
+    double timer2 = gettime();
 
     // Print out the timing characterisitics
     printf("number of iterations: %d\n", iterations);
-//    printf("kernel + memcpy time %f ms\n", (time2 - time1) * 1000);
+    printf("kernel + memcpy time %f ms\n", (time2 - time1) * 1000);
 
 #if 1
     // Print the set array

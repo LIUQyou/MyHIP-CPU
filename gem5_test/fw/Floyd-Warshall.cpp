@@ -60,7 +60,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <sys/time.h>
+#include <sys/time.h>
 //#include <omp.h>
 #include "../graph_parser/util.h"
 #include "kernel.h"
@@ -84,6 +84,7 @@
 
 int main(int argc, char **argv)
 {
+    double timer0 = gettime();
     char *tmpchar;
     bool verify_results = false;
 
@@ -150,8 +151,8 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    //double timer1 = gettime();
-
+    double timer1 = gettime();
+    printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
@@ -167,14 +168,14 @@ int main(int argc, char **argv)
     dim3 threads(16, 16, 1);
     dim3 grid(num_nodes / 16, num_nodes / 16, 1);
 
-    //double timer3 = gettime();
+    double timer3 = gettime();
     // Main computation loop
     for (int k = 1; k < dim && k < MAX_ITERS; k++) {
         hipLaunchKernelGGL(HIP_KERNEL_NAME(floydwarshall), dim3(grid), dim3(threads), 0, 0, dist_d, next_d, dim, k);
     }
     hipDeviceSynchronize();
 
-    //double timer4 = gettime();
+    double timer4 = gettime();
     err = hipMemcpy(result, dist_d, dim * dim * sizeof(int), hipMemcpyDeviceToHost);
     if (err != hipSuccess) {
         fprintf(stderr, "ERROR:  read back dist_d %d failed\n", err);
@@ -185,10 +186,10 @@ int main(int argc, char **argv)
     m5_work_end(0, 0);
 #endif
 
-    //double timer2 = gettime();
+    double timer2 = gettime();
 
-    //printf("kernel time = %lf ms\n", (timer4 - timer3) * 1000);
-    //printf("kernel + memcpy time = %lf ms\n", (timer2 - timer1) * 1000);
+    printf("kernel time = %lf ms\n", (timer4 - timer3) * 1000);
+    printf("kernel + memcpy time = %lf ms\n", (timer2 - timer1) * 1000);
 
     if (verify_results) {
         // Below is the verification part
