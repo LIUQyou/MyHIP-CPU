@@ -278,7 +278,7 @@ int main(int argc, char **argv)
 
     // Print out the timing characterisitics
     printf("number of iterations: %d\n", iterations);
-    printf("kernel + memcpy time %f ms\n", (time2 - time1) * 1000);
+    printf("kernel + memcpy time %f ms\n", (timer2 - timer1) * 1000);
 
 #if 1
     // Print the set array
