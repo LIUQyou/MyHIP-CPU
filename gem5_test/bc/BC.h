@@ -55,7 +55,7 @@
  * website at http://www.bis.doc.gov/.                                              *
  *                                                                                  *
 \************************************************************************************/
-
+#include <sys/time.h>
 typedef struct csr_array_t {
 
     int *row_array;
@@ -103,6 +103,12 @@ void transform(CooTuple *tuple_array, int num_edges, int *row_array, int *col_ar
 
     }
     row_array[row_cnt] = idx;
+}
+
+double gettime() {
+  struct timeval t;
+  gettimeofday(&t,NULL);
+  return t.tv_sec+t.tv_usec*1e-6;
 }
 
 csr_array * parseCOO(char* tmpchar, int *p_num_nodes, int *p_num_edges, bool directed)
