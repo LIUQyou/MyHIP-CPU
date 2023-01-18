@@ -89,7 +89,6 @@ int main(int argc, char **argv)
     int num_nodes;
     int num_edges;
     bool directed = 1;
-    int status = 0;
 
     hipError_t err;
 
