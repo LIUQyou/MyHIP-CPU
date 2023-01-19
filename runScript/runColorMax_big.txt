@@ -1,0 +1,7 @@
+Opening file: 2k_1M.gr
+This is an undirected graph
+Read from file: num_nodes = 2048, num_edges = 2097152
+preprocess time = 948.045015 ms
+total number of colors used: 831
+kernel time = 12179.353952 ms
+kernel + memcpy time = 12187.798023 ms

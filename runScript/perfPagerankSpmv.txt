@@ -1,0 +1,21 @@
+# started on Thu Jan 19 07:32:23 2023
+
+
+ Performance counter stats for './runPagerankSpmv.sh':
+
+    12,877,472,818      cycles                                                        (46.44%)
+    15,003,150,643      instructions              #    1.17  insn per cycle           (57.67%)
+         1,690,779      LLC-load-misses           #   19.52% of all LL-cache hits     (57.51%)
+         8,662,702      LLC-loads                                                     (55.97%)
+           208,430      LLC-store-misses                                              (21.18%)
+           715,719      LLC-stores                                                    (20.66%)
+           649,172      dtlb_load_misses.miss_causes_a_walk                                     (31.81%)
+           236,718      dtlb_store_misses.miss_causes_a_walk                                     (44.03%)
+           507,149      itlb_misses.miss_causes_a_walk                                     (45.36%)
+
+       0.432594907 seconds time elapsed
+
+       5.336190000 seconds user
+       0.429130000 seconds sys
+
+

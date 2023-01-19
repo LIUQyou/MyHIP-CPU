@@ -1,0 +1,21 @@
+# started on Thu Jan 19 07:32:20 2023
+
+
+ Performance counter stats for './runSsspCsr.sh 2k_1M.gr':
+
+     1,992,489,878      cycles                                                        (59.25%)
+     3,840,535,321      instructions              #    1.93  insn per cycle           (68.29%)
+           274,898      LLC-load-misses           #   35.43% of all LL-cache hits     (59.44%)
+           775,953      LLC-loads                                                     (51.11%)
+            70,439      LLC-store-misses                                              (14.23%)
+           280,589      LLC-stores                                                    (17.73%)
+           181,595      dtlb_load_misses.miss_causes_a_walk                                     (33.53%)
+           262,599      dtlb_store_misses.miss_causes_a_walk                                     (48.89%)
+           177,449      itlb_misses.miss_causes_a_walk                                     (56.49%)
+
+       0.681420815 seconds time elapsed
+
+       0.872904000 seconds user
+       0.224998000 seconds sys
+
+

@@ -1,0 +1,21 @@
+# started on Thu Jan 19 07:29:54 2023
+
+
+ Performance counter stats for './runBC.sh 2k_1M.gr':
+
+    39,879,148,551      cycles                                                        (44.82%)
+    31,160,631,639      instructions              #    0.78  insn per cycle           (56.19%)
+        28,275,687      LLC-load-misses           #   38.55% of all LL-cache hits     (55.95%)
+        73,347,016      LLC-loads                                                     (55.59%)
+        10,972,973      LLC-store-misses                                              (22.10%)
+        36,615,175      LLC-stores                                                    (21.94%)
+         5,203,257      dtlb_load_misses.miss_causes_a_walk                                     (32.99%)
+           627,015      dtlb_store_misses.miss_causes_a_walk                                     (44.41%)
+         5,374,071      itlb_misses.miss_causes_a_walk                                     (44.45%)
+
+       3.911666900 seconds time elapsed
+
+      36.137105000 seconds user
+       3.590013000 seconds sys
+
+

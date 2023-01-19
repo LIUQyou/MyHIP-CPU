@@ -1,0 +1,21 @@
+# started on Thu Jan 19 07:32:21 2023
+
+
+ Performance counter stats for './runSsspEll.sh 1k_128k.gr':
+
+     1,783,726,410      cycles                                                        (55.13%)
+     1,159,157,570      instructions              #    0.65  insn per cycle           (64.62%)
+           294,489      LLC-load-misses           #    2.40% of all LL-cache hits     (61.26%)
+        12,269,311      LLC-loads                                                     (57.04%)
+            79,414      LLC-store-misses                                              (18.64%)
+           954,346      LLC-stores                                                    (15.46%)
+           366,073      dtlb_load_misses.miss_causes_a_walk                                     (28.85%)
+            45,124      dtlb_store_misses.miss_causes_a_walk                                     (42.96%)
+           404,938      itlb_misses.miss_causes_a_walk                                     (47.59%)
+
+       0.187185180 seconds time elapsed
+
+       1.302272000 seconds user
+       0.316212000 seconds sys
+
+

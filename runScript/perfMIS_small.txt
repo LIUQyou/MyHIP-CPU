@@ -1,0 +1,21 @@
+# started on Thu Jan 19 07:32:18 2023
+
+
+ Performance counter stats for './runMIS.sh 1k_128k.gr':
+
+       462,920,042      cycles                                                        (54.31%)
+       676,547,469      instructions              #    1.46  insn per cycle           (60.33%)
+            38,048      LLC-load-misses           #   12.03% of all LL-cache hits     (39.36%)
+           316,246      LLC-loads                                                     (28.90%)
+            16,916      LLC-store-misses                                              (9.22%)
+           223,989      LLC-stores                                                    (29.34%)
+            90,188      dtlb_load_misses.miss_causes_a_walk                                     (56.06%)
+            25,578      dtlb_store_misses.miss_causes_a_walk                                     (71.10%)
+            67,851      itlb_misses.miss_causes_a_walk                                     (74.15%)
+
+       0.156253526 seconds time elapsed
+
+       0.260564000 seconds user
+       0.092827000 seconds sys
+
+

@@ -1,0 +1,21 @@
+# started on Thu Jan 19 07:30:35 2023
+
+
+ Performance counter stats for './runFW.sh 2k_1M.gr':
+
+10,088,572,248,177      cycles                                                        (44.44%)
+11,394,655,738,090      instructions              #    1.13  insn per cycle           (55.55%)
+        81,078,485      LLC-load-misses           #   27.38% of all LL-cache hits     (55.56%)
+       296,069,743      LLC-loads                                                     (55.56%)
+        38,258,893      LLC-store-misses                                              (22.22%)
+        62,768,413      LLC-stores                                                    (22.22%)
+        37,151,569      dtlb_load_misses.miss_causes_a_walk                                     (33.33%)
+         5,577,690      dtlb_store_misses.miss_causes_a_walk                                     (44.44%)
+        29,625,255      itlb_misses.miss_causes_a_walk                                     (44.44%)
+
+     102.073036837 seconds time elapsed
+
+    4054.383212000 seconds user
+       3.389310000 seconds sys
+
+

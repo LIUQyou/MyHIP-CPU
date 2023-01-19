@@ -1,0 +1,21 @@
+# started on Thu Jan 19 07:30:13 2023
+
+
+ Performance counter stats for './runColorMinmax.sh 1k_128k.gr':
+
+     5,073,644,885      cycles                                                        (46.07%)
+     2,835,001,975      instructions              #    0.56  insn per cycle           (58.11%)
+           572,676      LLC-load-misses           #   12.49% of all LL-cache hits     (59.11%)
+         4,585,380      LLC-loads                                                     (58.59%)
+           542,739      LLC-store-misses                                              (21.51%)
+         2,904,475      LLC-stores                                                    (19.94%)
+         1,209,427      dtlb_load_misses.miss_causes_a_walk                                     (29.63%)
+            76,021      dtlb_store_misses.miss_causes_a_walk                                     (41.41%)
+         1,085,085      itlb_misses.miss_causes_a_walk                                     (43.02%)
+
+       0.656012162 seconds time elapsed
+
+       3.810394000 seconds user
+       1.271228000 seconds sys
+
+

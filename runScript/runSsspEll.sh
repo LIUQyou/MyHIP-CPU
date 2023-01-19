@@ -1,2 +1,3 @@
 #!/bin/bash
-../build/gem5_test/sssp/ssspEll 1k_128k.gr 0
+data=$1
+../build/gem5_test/sssp/ssspEll $data 0
