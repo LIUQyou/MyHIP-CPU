@@ -3,8 +3,6 @@ set(name fw)
 file(GLOB SOURCES
      "*.h"
      "*.cpp"
-    ${CMAKE_CURRENT_LIST_DIR}/../graph_parser/parse.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../graph_parser/parse.h
     ${CMAKE_CURRENT_LIST_DIR}/../graph_parser/util.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../graph_parser/util.h
 )
