@@ -100,10 +100,10 @@ int run_bc(int argc, char **argv)
     }
 
     // Parse graph and store it in a CSR format
-    csr_array *csr = parseCOO(tmpchar, &num_nodes, &num_edges, directed);
+    static csr_array *csr = parseCOO(tmpchar, &num_nodes, &num_edges, directed);
 
     // Allocate the bc host array
-    float *bc_h = (float *)malloc(num_nodes * sizeof(float));
+    static float *bc_h = (float *)malloc(num_nodes * sizeof(float));
     if (!bc_h) fprintf(stderr, "malloc failed bc_h\n");
 
     // Create device-side buffers
@@ -276,14 +276,14 @@ int run_bc(int argc, char **argv)
 #endif
 
     // Clean up the host-side buffers
-    free(bc_h);
-    free(csr->row_array);
-    free(csr->col_array);
-    free(csr->data_array);
-    free(csr->row_array_t);
-    free(csr->col_array_t);
-    free(csr->data_array_t);
-    free(csr);
+    // free(bc_h);
+    // free(csr->row_array);
+    // free(csr->col_array);
+    // free(csr->data_array);
+    // free(csr->row_array_t);
+    // free(csr->col_array_t);
+    // free(csr->data_array_t);
+    // free(csr);
 
     // Clean up the device-side buffers
     // hipFree(bc_d);
