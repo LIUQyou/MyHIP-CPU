@@ -269,12 +269,12 @@ int run_sssp_ell(int argc, char **argv)
 
     // Clean up the host arrays
     // free(cost_array);
-    csr->freeArrays();
-    free(csr);
+    // csr->freeArrays();
+    // free(csr);
 
-    free(ell->col_array);
-    free(ell->data_array);
-    free(ell);
+    // free(ell->col_array);
+    // free(ell->data_array);
+    // free(ell);
 
     // Clean up the device-side buffers
     // hipFree(ell_col_d);
