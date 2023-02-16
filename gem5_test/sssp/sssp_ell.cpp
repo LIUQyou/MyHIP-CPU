@@ -99,7 +99,7 @@ int run_sssp_ell(int argc, char **argv)
     }
 
     // Allocate the csr structure
-    csr_array *csr;
+    static csr_array *csr;
 
     // Parse the graph and store it into the CSR structure
     if (file_format == 1) {
@@ -112,7 +112,7 @@ int run_sssp_ell(int argc, char **argv)
     }
 
     // Allocate ell and transform from csr
-    ell_array *ell = csr2ell(csr, num_nodes, num_edges, BIGNUM);
+    static ell_array *ell = csr2ell(csr, num_nodes, num_edges, BIGNUM);
     int height = ell->max_height;
 
     // Allocate the cost array

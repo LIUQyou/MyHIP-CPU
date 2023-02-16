@@ -108,7 +108,7 @@ int run_fw(int argc, char **argv)
     }
 
     // Parse the adjacency matrix
-    int *adjmatrix = parse_graph_file(&num_nodes, &num_edges, tmpchar);
+    static int *adjmatrix = parse_graph_file(&num_nodes, &num_edges, tmpchar);
     int dim = num_nodes;
 
     // Initialize the distance matrix
@@ -226,7 +226,7 @@ int run_fw(int argc, char **argv)
     printf("Finishing Floyd-Warshall\n");
 
     // Free host-side buffers
-    free(adjmatrix);
+    // free(adjmatrix);
     // free(result);
     // free(distmatrix);
 

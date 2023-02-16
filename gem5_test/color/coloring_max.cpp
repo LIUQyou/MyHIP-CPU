@@ -97,7 +97,7 @@ int run_coloring_max(int argc, char **argv)
     srand(7);
 
     // Allocate the CSR structure
-    csr_array *csr;
+    static csr_array *csr;
 
     // Parse graph file and store into a CSR format
     if (file_format == 1)
@@ -275,8 +275,8 @@ int run_coloring_max(int argc, char **argv)
     // Free host-side buffers
     // free(node_value);
     // free(color);
-    csr->freeArrays();
-    free(csr);
+    // csr->freeArrays();
+    // free(csr);
 
     // Free CUDA buffers
     // hipFree(row_d);

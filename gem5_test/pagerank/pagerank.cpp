@@ -96,7 +96,7 @@ int run_pagerank(int argc, char **argv)
     }
 
     // Allocate the csr structure
-    csr_array *csr;
+    static csr_array *csr;
 
     // Parse graph files into csr structure
     if (file_format == 1) {
@@ -234,8 +234,8 @@ int run_pagerank(int argc, char **argv)
 
     // Free the host-side arrays
     // free(rank_array);
-    csr->freeArrays();
-    free(csr);
+    // csr->freeArrays();
+    // free(csr);
 
     // Free the device buffers
     // hipFree(row_d);

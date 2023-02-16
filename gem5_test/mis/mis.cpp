@@ -101,7 +101,7 @@ int run_mis(int argc, char **argv)
     srand(7);
 
     // Allocate the csr array
-    csr_array *csr;
+    static csr_array *csr;
 
     // Parse the graph into the csr structure
     if (file_format == 1) {
@@ -287,8 +287,8 @@ int run_mis(int argc, char **argv)
     // Clean up the host-side arrays
     // free(node_value);
     // free(s_array);
-    csr->freeArrays();
-    free(csr);
+    // csr->freeArrays();
+    // free(csr);
 
     // Clean up the device-side arrays
     // hipFree(row_d);

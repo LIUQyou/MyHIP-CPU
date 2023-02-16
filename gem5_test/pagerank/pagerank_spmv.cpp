@@ -96,7 +96,7 @@ int run_pagerankSPMV(int argc, char **argv)
     }
 
     // Allocate the csr structure
-    csr_array *csr;
+    static csr_array *csr;
 
     // Parse graph files into csr structure
     if (file_format == 1) {
@@ -249,8 +249,8 @@ int run_pagerankSPMV(int argc, char **argv)
     // Free the host-side arrays
     // free(pagerank_array);
     // free(pagerank_array2);
-    csr->freeArrays();
-    free(csr);
+    // csr->freeArrays();
+    // free(csr);
 
     // Free the device buffers
     // hipFree(row_d);

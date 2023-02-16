@@ -94,7 +94,7 @@ int run_sssp_csr(int argc, char **argv)
     }
 
     // Allocate the csr structure
-    csr_array *csr;
+    static csr_array *csr;
 
     // Parse the graph and store it into the CSR structure
     if (file_format == 1) {
@@ -272,8 +272,8 @@ int run_sssp_csr(int argc, char **argv)
 
     // Clean up the host arrays
     // free(cost_array);
-    csr->freeArrays();
-    free(csr);
+    // csr->freeArrays();
+    // free(csr);
 
     // Clean up the device-side buffers
     // hipFree(row_d);
