@@ -285,8 +285,8 @@ int run_mis(int argc, char **argv)
 #endif
 
     // Clean up the host-side arrays
-    free(node_value);
-    free(s_array);
+    // free(node_value);
+    // free(s_array);
     csr->freeArrays();
     free(csr);
 

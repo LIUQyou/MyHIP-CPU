@@ -247,8 +247,8 @@ int run_pagerankSPMV(int argc, char **argv)
 #endif
 
     // Free the host-side arrays
-    free(pagerank_array);
-    free(pagerank_array2);
+    // free(pagerank_array);
+    // free(pagerank_array2);
     csr->freeArrays();
     free(csr);
 

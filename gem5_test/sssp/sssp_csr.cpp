@@ -271,7 +271,7 @@ int run_sssp_csr(int argc, char **argv)
 #endif
 
     // Clean up the host arrays
-    free(cost_array);
+    // free(cost_array);
     csr->freeArrays();
     free(csr);
 

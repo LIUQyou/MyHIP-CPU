@@ -233,7 +233,7 @@ int run_pagerank(int argc, char **argv)
 #endif
 
     // Free the host-side arrays
-    free(rank_array);
+    // free(rank_array);
     csr->freeArrays();
     free(csr);
 

@@ -227,8 +227,8 @@ int run_fw(int argc, char **argv)
 
     // Free host-side buffers
     free(adjmatrix);
-    free(result);
-    free(distmatrix);
+    // free(result);
+    // free(distmatrix);
 
     // Free CUDA buffers
     // hipFree(dist_d);
