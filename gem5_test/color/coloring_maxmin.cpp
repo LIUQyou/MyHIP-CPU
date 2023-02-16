@@ -74,7 +74,7 @@
 
 void print_vector(int *vector, int num);
 
-int main(int argc, char **argv)
+int run_coloring_maxmin(int argc, char **argv)
 {
     double timer0 = gettime();
     char *tmpchar;
@@ -110,10 +110,10 @@ int main(int argc, char **argv)
     }
 
     // Allocate the vertex value array
-    int *node_value = (int *)malloc(num_nodes * sizeof(int));
+    static int *node_value = (int *)malloc(num_nodes * sizeof(int));
     if (!node_value) fprintf(stderr, "node_value malloc failed\n");
     // Allocate the color array
-    int *color = (int *)malloc(num_nodes * sizeof(int));
+    static int *color = (int *)malloc(num_nodes * sizeof(int));
     if (!color) fprintf(stderr, "color malloc failed\n");
 
     // Initialize all the colors to -1
@@ -123,14 +123,14 @@ int main(int argc, char **argv)
         node_value[i] = rand() % RANGE;
     }
 
-    int *row_d;
-    int *col_d;
-    int *max_d;
-    int *min_d;
+    static int *row_d;
+    static int *col_d;
+    static int *max_d;
+    static int *min_d;
 
-    int *color_d;
-    int *node_value_d;
-    int *stop_d;
+    static int *color_d;
+    static int *node_value_d;
+    static int *stop_d;
 
     // Create device-side buffers for the graph
     err = hipMalloc((void**)&row_d, num_nodes * sizeof(int));
@@ -176,7 +176,6 @@ int main(int argc, char **argv)
     // Copy data to device-side buffers
     double timer1 = gettime();
     printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
-    int status = system("m5 exit");
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
@@ -283,12 +282,12 @@ int main(int argc, char **argv)
     free(csr);
 
     // Free CUDA buffers
-    hipFree(row_d);
-    hipFree(col_d);
-    hipFree(max_d);
-    hipFree(color_d);
-    hipFree(node_value_d);
-    hipFree(stop_d);
+    // hipFree(row_d);
+    // hipFree(col_d);
+    // hipFree(max_d);
+    // hipFree(color_d);
+    // hipFree(node_value_d);
+    // hipFree(stop_d);
 
     return 0;
 
@@ -305,4 +304,11 @@ void print_vector(int *vector, int num)
         fprintf(fp, "%d: %d\n", i + 1, vector[i]);
 
     fclose(fp);
+}
+
+int main(int argc, char ** argv)
+{
+  int result1=run_coloring_maxmin(argc,argv);
+  int result2=run_coloring_maxmin(argc,argv);
+  return result2;
 }

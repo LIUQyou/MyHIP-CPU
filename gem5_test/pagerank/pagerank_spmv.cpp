@@ -65,7 +65,6 @@
 #include "../graph_parser/util.h"
 #include "kernel_spmv.h"
 
-
 #ifdef GEM5_FUSION
 #include <stdint.h>
 #include <gem5/m5ops.h>
@@ -76,7 +75,7 @@
 
 void print_vectorf(float *vector, int num);
 
-int main(int argc, char **argv)
+int run_pagerankSPMV(int argc, char **argv)
 {
     double timer0 = gettime();
     char *tmpchar;
@@ -110,18 +109,18 @@ int main(int argc, char **argv)
     }
 
     // Allocate rank_arrays
-    float *pagerank_array = (float *)malloc(num_nodes * sizeof(float));
+    static float *pagerank_array = (float *)malloc(num_nodes * sizeof(float));
     if (!pagerank_array) fprintf(stderr, "malloc failed page_rank_array\n");
-    float *pagerank_array2 = (float *)malloc(num_nodes * sizeof(float));
+    static float *pagerank_array2 = (float *)malloc(num_nodes * sizeof(float));
     if (!pagerank_array2) fprintf(stderr, "malloc failed page_rank_array2\n");
 
-    int *row_d;
-    int *col_d;
-    float *data_d;
+    static int *row_d;
+    static int *col_d;
+    static float *data_d;
 
-    float *pagerank1_d;
-    float *pagerank2_d;
-    int *col_cnt_d;
+    static float *pagerank1_d;
+    static float *pagerank2_d;
+    static int *col_cnt_d;
 
     // Create device-side buffers for the graph
     err = hipMalloc((void**)&row_d, (num_nodes + 1) * sizeof(int));
@@ -159,7 +158,6 @@ int main(int argc, char **argv)
 
     double timer1 = gettime();
     printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
-    int status = system("m5 exit");
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
@@ -255,12 +253,12 @@ int main(int argc, char **argv)
     free(csr);
 
     // Free the device buffers
-    hipFree(row_d);
-    hipFree(col_d);
-    hipFree(data_d);
+    // hipFree(row_d);
+    // hipFree(col_d);
+    // hipFree(data_d);
 
-    hipFree(pagerank1_d);
-    hipFree(pagerank2_d);
+    // hipFree(pagerank1_d);
+    // hipFree(pagerank2_d);
 
     return 0;
 }
@@ -279,3 +277,9 @@ void print_vectorf(float *vector, int num)
     fclose(fp);
 }
 
+int main(int argc, char ** argv)
+{
+  int result1=run_pagerankSPMV(argc,argv);
+  int result2=run_pagerankSPMV(argc,argv);
+  return result2;
+}

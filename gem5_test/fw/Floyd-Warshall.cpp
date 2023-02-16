@@ -82,7 +82,7 @@
 #define TRUE 1
 #define FALSE 0
 
-int main(int argc, char **argv)
+int run_fw(int argc, char **argv)
 {
     double timer0 = gettime();
     char *tmpchar;
@@ -112,11 +112,11 @@ int main(int argc, char **argv)
     int dim = num_nodes;
 
     // Initialize the distance matrix
-    int *distmatrix = (int *)malloc(dim * dim * sizeof(int));
+    static int *distmatrix = (int *)malloc(dim * dim * sizeof(int));
     if (!distmatrix) fprintf(stderr, "malloc failed - distmatrix\n");
 
     // Initialize the result matrix
-    int *result = (int *)malloc(dim * dim * sizeof(int));
+    static int *result = (int *)malloc(dim * dim * sizeof(int));
     if (!result) fprintf(stderr, "malloc failed - result\n");
 
     // TODO: Now only supports integer weights
@@ -136,8 +136,8 @@ int main(int argc, char **argv)
         }
     }
 
-    int *dist_d;
-    int *next_d;
+    static int *dist_d;
+    static int *next_d;
 
     // Create device-side FW buffers
     err = hipMalloc((void**)&dist_d, dim * dim * sizeof(int));
@@ -153,7 +153,6 @@ int main(int argc, char **argv)
 
     double timer1 = gettime();
     printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
-    int status = system("m5 exit");
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
@@ -232,8 +231,15 @@ int main(int argc, char **argv)
     free(distmatrix);
 
     // Free CUDA buffers
-    hipFree(dist_d);
-    hipFree(next_d);
+    // hipFree(dist_d);
+    // hipFree(next_d);
 
     return 0;
+}
+
+int main(int argc, char ** argv)
+{
+  int result1=run_fw(argc,argv);
+  int result2=run_fw(argc,argv);
+  return result2;
 }

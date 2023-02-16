@@ -81,7 +81,7 @@
 void print_vector(int *vector, int num);
 void print_vectorf(float *vector, int num);
 
-int main(int argc, char **argv)
+int run_bc(int argc, char **argv)
 {
     double timer0 = gettime();
     char *tmpchar;
@@ -107,9 +107,9 @@ int main(int argc, char **argv)
     if (!bc_h) fprintf(stderr, "malloc failed bc_h\n");
 
     // Create device-side buffers
-    float *bc_d, *sigma_d, *rho_d;
-    int *dist_d, *stop_d;
-    int *row_d, *col_d, *row_trans_d, *col_trans_d;
+    static float *bc_d, *sigma_d, *rho_d;
+    static int *dist_d, *stop_d;
+    static int *row_d, *col_d, *row_trans_d, *col_trans_d;
 
     // Create betweenness centrality buffers
     err = hipMalloc((void**)&bc_d, num_nodes * sizeof(float));
@@ -167,7 +167,6 @@ int main(int argc, char **argv)
 
     timer1 = gettime();
     printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
-    int status = system("m5 exit");
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
@@ -287,15 +286,15 @@ int main(int argc, char **argv)
     free(csr);
 
     // Clean up the device-side buffers
-    hipFree(bc_d);
-    hipFree(dist_d);
-    hipFree(sigma_d);
-    hipFree(rho_d);
-    hipFree(stop_d);
-    hipFree(row_d);
-    hipFree(col_d);
-    hipFree(row_trans_d);
-    hipFree(col_trans_d);
+    // hipFree(bc_d);
+    // hipFree(dist_d);
+    // hipFree(sigma_d);
+    // hipFree(rho_d);
+    // hipFree(stop_d);
+    // hipFree(row_d);
+    // hipFree(col_d);
+    // hipFree(row_trans_d);
+    // hipFree(col_trans_d);
 
     return 0;
 }
@@ -321,4 +320,12 @@ void print_vectorf(float *vector, int num)
 
     fclose(fp);
 
+}
+
+
+int main(int argc, char ** argv)
+{
+  int result1=run_bc(argc,argv);
+  int result2=run_bc(argc,argv);
+  return result2;
 }

@@ -66,7 +66,6 @@
 #include "../graph_parser/util.h"
 #include "kernel.h"
 
-
 #ifdef GEM5_FUSION
 #include <stdint.h>
 #include <gem5/m5ops.h>
@@ -78,7 +77,7 @@ void dump2file(int *adjmatrix, int num_nodes);
 void print_vector(int *vector, int num);
 void print_vectorf(float *vector, int num);
 
-int main(int argc, char **argv)
+int run_mis(int argc, char **argv)
 {
     double timer0 = gettime();
     char *tmpchar;
@@ -115,11 +114,11 @@ int main(int argc, char **argv)
     }
 
     // Allocate the node value array
-    int *node_value = (int *)malloc(num_nodes * sizeof(int));
+    static int *node_value = (int *)malloc(num_nodes * sizeof(int));
     if (!node_value) fprintf(stderr, "malloc failed node_value\n");
 
     // Allocate the set array
-    int *s_array = (int *)malloc(num_nodes * sizeof(int));
+    static int *s_array = (int *)malloc(num_nodes * sizeof(int));
     if (!s_array) fprintf(stderr, "malloc failed node_value\n");
 
     // Randomize the node values
@@ -128,15 +127,15 @@ int main(int argc, char **argv)
     }
 
     // Create device side buffers
-    int *row_d;
-    int *col_d;
+    static int *row_d;
+    static int *col_d;
 
-    int *c_array_d;
-    int *c_array_u_d;
-    int *s_array_d;
-    int *node_value_d;
-    int *min_array_d;
-    int *stop_d;
+    static int *c_array_d;
+    static int *c_array_u_d;
+    static int *s_array_d;
+    static int *node_value_d;
+    static int *min_array_d;
+    static int *stop_d;
 
     // Allocate the device-side buffers for the graph
     err = hipMalloc((void**)&row_d, num_nodes * sizeof(int));
@@ -184,9 +183,8 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    double timer1 = gettime();
-    printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
-    int status = system("m5 exit");
+    double time1 = gettime();
+    printf("preprocess time = %lf ms\n", (time1 - timer0) * 1000);
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
@@ -275,11 +273,11 @@ int main(int argc, char **argv)
     m5_work_end(0, 0);
 #endif
 
-    double timer2 = gettime();
+    double time2 = gettime();
 
     // Print out the timing characterisitics
     printf("number of iterations: %d\n", iterations);
-    printf("kernel + memcpy time %f ms\n", (timer2 - timer1) * 1000);
+    printf("kernel + memcpy time %f ms\n", (time2 - time1) * 1000);
 
 #if 1
     // Print the set array
@@ -293,13 +291,13 @@ int main(int argc, char **argv)
     free(csr);
 
     // Clean up the device-side arrays
-    hipFree(row_d);
-    hipFree(col_d);
-    hipFree(c_array_d);
-    hipFree(s_array_d);
-    hipFree(node_value_d);
-    hipFree(min_array_d);
-    hipFree(stop_d);
+    // hipFree(row_d);
+    // hipFree(col_d);
+    // hipFree(c_array_d);
+    // hipFree(s_array_d);
+    // hipFree(node_value_d);
+    // hipFree(min_array_d);
+    // hipFree(stop_d);
 
     return 0;
 }
@@ -334,4 +332,11 @@ void print_vectorf(float *vector, int num)
 
     fclose(fp);
 
+}
+
+int main(int argc, char ** argv)
+{
+  int result1=run_mis(argc,argv);
+  int result2=run_mis(argc,argv);
+  return result2;
 }

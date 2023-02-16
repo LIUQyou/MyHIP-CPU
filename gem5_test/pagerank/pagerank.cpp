@@ -65,7 +65,6 @@
 #include "../graph_parser/util.h"
 #include "kernel.h"
 
-
 #ifdef GEM5_FUSION
 #include <stdint.h>
 #include <gem5/m5ops.h>
@@ -76,7 +75,7 @@
 
 void print_vectorf(float *vector, int num);
 
-int main(int argc, char **argv)
+int run_pagerank(int argc, char **argv)
 {
     double timer0 = gettime();
     char *tmpchar;
@@ -115,18 +114,18 @@ int main(int argc, char **argv)
     }
 
     // Allocate rank_array
-    float *rank_array = (float *)malloc(num_nodes * sizeof(float));
+    static float *rank_array = (float *)malloc(num_nodes * sizeof(float));
     if (!rank_array) {
         fprintf(stderr, "rank array not allocated successfully\n");
         return -1;
     }
 
-    int *row_d;
-    int *col_d;
-    int *data_d;
+    static int *row_d;
+    static int *col_d;
+    static int *data_d;
 
-    float *pagerank1_d;
-    float *pagerank2_d;
+    static float *pagerank1_d;
+    static float *pagerank2_d;
 
     // Create device-side buffers for the graph
     err = hipMalloc((void**)&row_d, num_nodes * sizeof(int));
@@ -159,7 +158,7 @@ int main(int argc, char **argv)
 
     double timer1 = gettime();
     printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
-    int status = system("m5 exit");
+
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
@@ -239,12 +238,12 @@ int main(int argc, char **argv)
     free(csr);
 
     // Free the device buffers
-    hipFree(row_d);
-    hipFree(col_d);
-    hipFree(data_d);
+    // hipFree(row_d);
+    // hipFree(col_d);
+    // hipFree(data_d);
 
-    hipFree(pagerank1_d);
-    hipFree(pagerank2_d);
+    // hipFree(pagerank1_d);
+    // hipFree(pagerank2_d);
 
     return 0;
 
@@ -264,3 +263,9 @@ void print_vectorf(float *vector, int num)
     fclose(fp);
 }
 
+int main(int argc, char ** argv)
+{
+  int result1=run_pagerank(argc,argv);
+  int result2=run_pagerank(argc,argv);
+  return result2;
+}

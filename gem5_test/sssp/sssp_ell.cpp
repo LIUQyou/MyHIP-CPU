@@ -78,7 +78,7 @@ void m5_work_end(uint64_t workid, uint64_t threadid);
 
 void print_vector(int *vector, int num);
 
-int main(int argc, char **argv)
+int run_sssp_ell(int argc, char **argv)
 {
     double timer0 = gettime();
     char *tmpchar;
@@ -116,7 +116,7 @@ int main(int argc, char **argv)
     int height = ell->max_height;
 
     // Allocate the cost array
-    int *cost_array = (int *)malloc(num_nodes * sizeof(int));
+    static int *cost_array = (int *)malloc(num_nodes * sizeof(int));
     if (!cost_array) fprintf(stderr, "malloc failed cost_array\n");
 
     // Set the cost array to zero
@@ -125,11 +125,11 @@ int main(int argc, char **argv)
     }
 
     // Create device-side buffers
-    int *ell_col_d;
-    int *ell_data_d;
-    int *vector_d1;
-    int *vector_d2;
-    int *stop_d;
+    static int *ell_col_d;
+    static int *ell_data_d;
+    static int *vector_d1;
+    static int *vector_d2;
+    static int *stop_d;
 
     // Create the device-side graph structure
     err = hipMalloc((void**)&ell_col_d, height * num_nodes * sizeof(int));
@@ -164,7 +164,6 @@ int main(int argc, char **argv)
 
     double timer1 = gettime();
     printf("preprocess time = %lf ms\n", (timer1 - timer0) * 1000);
-    int status = system("m5 exit");
 #ifdef GEM5_FUSION
     m5_work_begin(0, 0);
 #endif
@@ -278,11 +277,11 @@ int main(int argc, char **argv)
     free(ell);
 
     // Clean up the device-side buffers
-    hipFree(ell_col_d);
-    hipFree(ell_data_d);
-    hipFree(stop_d);
-    hipFree(vector_d1);
-    hipFree(vector_d2);
+    // hipFree(ell_col_d);
+    // hipFree(ell_data_d);
+    // hipFree(stop_d);
+    // hipFree(vector_d1);
+    // hipFree(vector_d2);
 
     return 0;
 }
@@ -299,4 +298,11 @@ void print_vector(int *vector, int num)
         fprintf(fp, "%d: %d\n", i + 1, vector[i]);
 
     fclose(fp);
+}
+
+int main(int argc, char ** argv)
+{
+  int result1=run_sssp_ell(argc,argv);
+  int result2=run_sssp_ell(argc,argv);
+  return result2;
 }
