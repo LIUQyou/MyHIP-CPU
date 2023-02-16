@@ -273,8 +273,8 @@ int run_coloring_max(int argc, char **argv)
 #endif
 
     // Free host-side buffers
-    free(node_value);
-    free(color);
+    // free(node_value);
+    // free(color);
     csr->freeArrays();
     free(csr);
 
